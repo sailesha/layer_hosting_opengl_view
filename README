@@ -1,0 +1,19 @@
+This app can be used to test memory usage of layer backed and layer hosting
+views. It creates a layer backed view and then add a child view that does
+actual drawing.
+
+To build it do:
+  sh build.sh
+To run it do:
+  ./a.out 0  # Add a normal child view with a custom NSOpenGLContext.
+  ./a.out 1  # Add a child NSOpenGLView that is layer backed.
+  ./a.out 2  # Add a layer hosting child view with a CAOpenGLLayer sublayer.
+
+To test VRAM usage first make sure you're using your discrete graphics card. You
+can use gfxCardStatus.app to do this. Then run:
+  python vmram.py
+
+On my MacBook Pro Retina I get the following results:
+  12 MB, 1 contexts, 13500416 bytes  # 0 - normal
+  40 MB, 2 contexts, 41943040 bytes  # 1 - NSOpenGLView
+  25 MB, 2 contexts, 27000832 bytes  # 2 - CAOpenGLLayer
